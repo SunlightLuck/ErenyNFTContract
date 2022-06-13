@@ -20,6 +20,7 @@ contract ErenyToken is ERC721URIStorage {
         address indexed buyer,
         uint256 indexed tokenId
     );
+    event Commoditize(uint256 indexed tokenId);
 
     function count() external view returns (uint256) {
         return _tokenIdCounter.current();
@@ -67,6 +68,8 @@ contract ErenyToken is ERC721URIStorage {
         require(ownerOf(tokenId) == owner, "Token is not yours");
         _isCommodity[tokenId] = true;
         _tokenPrice[tokenId] = price;
+
+        emit Commoditize(tokenId);
     }
 
     function isContentOwned(string memory tokenURI) public view returns (bool) {
